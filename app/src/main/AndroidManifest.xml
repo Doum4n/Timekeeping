@@ -5,11 +5,13 @@
 
     <uses-feature android:name="android.hardware.camera.any" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
     <application
@@ -23,7 +25,41 @@
         android:theme="@style/Theme.ChấmCông"
         tools:targetApi="31">
         <activity
-            android:name=".ScannerActivity"
+            android:name=".GrantPermissionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".item_add_employee"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.AddEmployeeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.group.EmployeeManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.AddShiftActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.ShiftManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.GroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.AddGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.scanner.Clock_in_result_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.scanner.ScannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

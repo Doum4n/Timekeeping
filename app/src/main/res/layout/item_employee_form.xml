@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="276dp">
+
+        <EditText
+            android:id="@+id/txtEmployeeName"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="62dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="60dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name"
+            app:layout_constraintBottom_toBottomOf="@+id/textSalary"
+            app:layout_constraintEnd_toStartOf="@+id/spd_role"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spd_role"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="22dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtEmployeeName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtEmployeeName"
+            app:layout_constraintTop_toTopOf="@+id/txtEmployeeName" />
+
+        <TextView
+            android:id="@+id/textSalary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/spd_salary_calculation_method3"
+            app:layout_constraintStart_toStartOf="@+id/txtSalary" />
+
+        <EditText
+            android:id="@+id/txtSalary"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="15dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/spd_salary_calculation_method3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spd_salary_calculation_method3"
+            app:layout_constraintTop_toBottomOf="@+id/textSalary" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="9dp"
+            android:text="Tên"
+            app:layout_constraintBottom_toTopOf="@+id/txtEmployeeName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeeName" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Chức vụ"
+            app:layout_constraintBottom_toTopOf="@+id/spd_role"
+            app:layout_constraintStart_toStartOf="@+id/spd_role" />
+
+        <Spinner
+            android:id="@+id/spd_salary_calculation_method3"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toStartOf="@+id/txtSalary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="159dp"
+            android:text="Cách tính lương"
+            app:layout_constraintStart_toStartOf="@+id/spd_salary_calculation_method3"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

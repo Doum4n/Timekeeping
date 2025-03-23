@@ -1,0 +1,78 @@
+package com.example.timekeeping.adapters;
+
+import static android.app.PendingIntent.getActivity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.timekeeping.ui.group.GroupActivity;
+import com.example.timekeeping.R;
+import com.example.timekeeping.models.Group;
+import com.example.timekeeping.ui.scanner.ScannerActivity;
+
+import java.util.ArrayList;
+
+public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.viewHolder> {
+    private ArrayList<Group> groups;
+    private Context context;
+    public GroupAdapter(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+    @NonNull
+    @Override
+    public GroupAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_group, parent, false);
+        return new viewHolder(inflate);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+        Group group = groups.get(position);
+
+        holder.txtGroupName.setText(groups.get(position).getName());
+
+        holder.cstLayoutGroupItem.setOnClickListener(v -> {
+            Intent intent = new Intent(context, GroupActivity.class);
+            intent.putExtra("group_id", group.getId());
+            context.startActivity(intent);
+        });
+
+        holder.btnTimekeeping.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ScannerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("group_id", group.getId());
+            bundle.putString("type","Timekeeping");
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return groups.size();
+    }
+
+    public class viewHolder extends RecyclerView.ViewHolder {
+        TextView txtGroupName;
+        ConstraintLayout cstLayoutGroupItem;
+        Button btnTimekeeping;
+        public viewHolder(View itemView) {
+            super(itemView);
+            cstLayoutGroupItem = itemView.findViewById(R.id.cstLayout_group);
+            txtGroupName = itemView.findViewById(R.id.txtGroupName);
+            btnTimekeeping = itemView.findViewById(R.id.btn_Clock_in);
+        }
+    }
+}

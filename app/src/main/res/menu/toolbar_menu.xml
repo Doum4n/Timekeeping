@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Nút Thêm (+) -->
+    <item
+        android:id="@+id/action_add"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="Thêm"
+        app:showAsAction="ifRoom" />
+
+    <!-- Nút Tùy chọn (3 chấm) -->
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Cài đặt"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:id="@+id/action_return_home"
+                android:title="Trờ về trang chủ" />
+        </menu>
+    </item>
+
+
+</menu>
