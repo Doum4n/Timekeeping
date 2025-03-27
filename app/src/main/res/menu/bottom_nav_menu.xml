@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Home"
+        android:title="Trang chủ"
+         />
+
+    <item
+        android:id="@+id/Individual"
+        android:title="Cá nhân"
+         />
+</menu>

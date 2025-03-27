@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.timekeeping"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
     implementation(libs.legacy.support.v4)
+    implementation(libs.material.v190)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

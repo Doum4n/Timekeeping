@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="selected_date">#6200EE</color> <!-- Màu ngày được chọn -->
+    <color name="unselected_date">#000000</color> <!-- Màu ngày không được chọn -->
+    <color name="week_background">#6200EE</color> <!-- Màu nền của tuần -->
+    <color name="line_color">#BDBDBD</color> <!-- Màu đường ngăn cách giữa các tuần -->
+    <color name="date_text_color">#212121</color> <!-- Màu chữ ngày -->
+    <color name="week_text_color">#757575</color> <!-- Màu chữ thứ trong tuần -->
 </resources>

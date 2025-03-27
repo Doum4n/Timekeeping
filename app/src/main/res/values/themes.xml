@@ -6,4 +6,27 @@
     </style>
 
     <style name="Theme.ChấmCông" parent="Base.Theme.ChấmCông" />
+
+    <style name="CustomCalendarText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/calendar_text_color</item>
+    </style>
+
+    <style name="CalendarDateText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/date_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CalendarWeekText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/week_background</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
 </resources>
