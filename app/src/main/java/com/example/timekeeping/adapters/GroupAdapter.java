@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.timekeeping.MyShiftsActivity;
 import com.example.timekeeping.ui.group.GroupActivity;
 import com.example.timekeeping.R;
 import com.example.timekeeping.models.Group;
@@ -49,12 +50,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.viewHolder> 
             context.startActivity(intent);
         });
 
+        //TODO đặt lại tên nút
         holder.btnTimekeeping.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ScannerActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("group_id", group.getId());
-            bundle.putString("type","Timekeeping");
-            intent.putExtras(bundle);
+            Intent intent = new Intent(context, MyShiftsActivity.class);
+            intent.putExtra("groupId", group.getId());
             context.startActivity(intent);
         });
     }

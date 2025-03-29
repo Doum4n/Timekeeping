@@ -1,5 +1,7 @@
 package com.example.timekeeping.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -10,15 +12,17 @@ import java.util.List;
 import java.util.Locale;
 
 public class Shift {
+    @Exclude
+    private String id;
     private String name;
     private String startTime;
     private String endTime;
-    private List<Employee>  employees= new ArrayList<>();
+    private List<String>  employees= new ArrayList<>();
     private String groupId;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
     public Shift(){}
 
-    public Shift(String name, String startTime, String endTime, List<Employee> employees, String groupId) {
+    public Shift(String name, String startTime, String endTime, List<String> employees, String groupId) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -50,11 +54,11 @@ public class Shift {
         this.endTime = endTime;
     }
 
-    public List<Employee> getEmployees() {
+    public List<String> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(List<String> employees) {
         this.employees = employees;
     }
 
@@ -65,5 +69,13 @@ public class Shift {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

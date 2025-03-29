@@ -3,6 +3,7 @@ package com.example.timekeeping.ui.scanner;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -23,6 +24,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -42,6 +47,7 @@ public class ScannerActivity extends AppCompatActivity {
     private ScannerType scannerType;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Map<ScannerType, Consumer<String>> scannerHandlers;
+    private AttendanceHandle attendanceHandle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class ScannerActivity extends AppCompatActivity {
         assert bundle != null;
         scannerType = ScannerType.valueOf(bundle.getString("type"));
 
+
         previewView = findViewById(R.id.previewView);
         Button scanButton = findViewById(R.id.scanButton);
 
@@ -59,7 +66,10 @@ public class ScannerActivity extends AppCompatActivity {
 
         // Ánh xạ ScannerType với phương thức xử lý tương ứng
         scannerHandlers = new EnumMap<>(ScannerType.class);
-        scannerHandlers.put(ScannerType.Timekeeping, this::handleTimekeeping);
+        scannerHandlers.put(ScannerType.Timekeeping, rawQRCode -> { // mã QR là shiftId
+            attendanceHandle = new AttendanceHandle(this, getIntent().getStringExtra("groupId"), rawQRCode/*getIntent().getStringExtra("shiftId")*/);
+            attendanceHandle.CheckIn();
+        });
         scannerHandlers.put(ScannerType.JoinWorkGroup, this::handleJoinWorkGroup);
 
         // Kiểm tra quyền camera
@@ -85,16 +95,9 @@ public class ScannerActivity extends AppCompatActivity {
         cameraService.stopCamera();
     }
 
-    private void handleTimekeeping(String rawValue) {
-        Intent intent = new Intent(this, Clock_in_result_Activity.class);
-        intent.putExtra("result", "Chấm công thành công");
-        startActivity(intent);
-    }
-
     private void handleJoinWorkGroup(String rawValue) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Tạo hai truy vấn độc lập
         Task<DocumentSnapshot> groupTask = db.collection("groups").document(rawValue).get();
         Task<DocumentSnapshot> employeeTask = db.collection("employees").document(userId).get();
 
@@ -124,6 +127,26 @@ public class ScannerActivity extends AppCompatActivity {
                 });
     }
 
+    //TODO Để tạm
+    private void generateQRCode(String text) {
+        QRCodeWriter writer = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 400, 400);
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+                }
+            }
+
+//            qrImageView.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void addEmployeeToGroup(String userId, String groupId) {
         db.collection("employees")

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timekeeping.R;
-import com.example.timekeeping.adapters.ShiftAdapter;
+import com.example.timekeeping.adapters.ShiftManagerAdapter;
 import com.example.timekeeping.databinding.ActivityShiftManagementBinding;
 import com.example.timekeeping.models.Shift;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -55,7 +55,7 @@ public class ShiftManagementActivity extends AppCompatActivity {
                     }
 
                     binding.rswListShift.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                    RecyclerView.Adapter<ShiftAdapter.viewHolder> adapter = new ShiftAdapter(shifts);
+                    RecyclerView.Adapter<ShiftManagerAdapter.viewHolder> adapter = new ShiftManagerAdapter(shifts);
                     binding.rswListShift.setAdapter(adapter);
 
                 }).addOnFailureListener(e -> Log.w("Firestore", "Lỗi khi lấy danh sách ca làm việc!", e));

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.legacy.support.v4)
     implementation(libs.material.v190)
+    implementation(libs.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
