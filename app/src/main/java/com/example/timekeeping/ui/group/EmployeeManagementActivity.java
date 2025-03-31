@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timekeeping.R;
 import com.example.timekeeping.adapters.EmployeeAdapter;
+import com.example.timekeeping.adapters.EmployeeTabAdapter;
 import com.example.timekeeping.databinding.ActivityEmployeeManagementBinding;
 import com.example.timekeeping.models.Employee;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,23 +38,19 @@ public class EmployeeManagementActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        initList();
-    }
+        EmployeeTabAdapter adapter = new EmployeeTabAdapter(this, groupId);
+        binding.viewPager.setAdapter(adapter);
 
-    private void initList() {
-        List<Employee> employees = new ArrayList<>();
-
-        db.collection("employees").whereArrayContains("groups", groupId).get()
-                .addOnSuccessListener(v -> {
-                    for (DocumentSnapshot document : v.getDocuments()) {
-                        Employee employee = document.toObject(Employee.class);
-                        employees.add(employee);
-                    }
-
-                    binding.rswEmployeeList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                    RecyclerView.Adapter<EmployeeAdapter.viewHolder> adapter = new EmployeeAdapter(employees);
-                    binding.rswEmployeeList.setAdapter(adapter);
-                }).addOnFailureListener(e -> Log.w("Firestore", "Lỗi khi lấy danh sách nhân viên!", e));
+        // Thêm TabLayoutMediator để liên kết TabLayout với ViewPager
+        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
+            if (position == 0) {
+                tab.setText("Chưa liên kết");
+            } else if (position == 1) {
+                tab.setText("Nhân viên");
+            }else {
+                tab.setText("Xét duyệt");
+            }
+        }).attach();
     }
 
     @Override
@@ -78,7 +76,5 @@ public class EmployeeManagementActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        initList();
     }
 }

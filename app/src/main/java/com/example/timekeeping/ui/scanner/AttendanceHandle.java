@@ -32,11 +32,7 @@ public class AttendanceHandle {
     }
     public void CheckIn(){
 
-        Attendance attendance = new Attendance();
-        attendance.setUserId(auth.getCurrentUser().getUid());
-        attendance.setGroupId(groupId);
-        attendance.setShifts(shiftId);
-        attendance.setInTime(Date.from(Instant.now()));
+        Attendance attendance = new Attendance(auth.getCurrentUser().getUid(), groupId, shiftId, Date.from(Instant.now()), null);
 
         DatabaseReference attendanceRef = db.getReference("attendances");
         String AttendanceId = attendanceRef.push().getKey();
@@ -50,5 +46,12 @@ public class AttendanceHandle {
                 }).addOnFailureListener(v -> {
 
                 });
+    }
+
+    public void CheckOut(){
+        Attendance attendance = db.getReference("attendances").orderByChild("userId").equalTo(auth.getCurrentUser().getUid()).get().getResult().getValue(Attendance.class);
+        assert attendance != null;
+        attendance.setOutTime(Date.from(Instant.now()));
+        db.getReference("attendances").child(attendance.getUserId()).setValue(attendance);
     }
 }

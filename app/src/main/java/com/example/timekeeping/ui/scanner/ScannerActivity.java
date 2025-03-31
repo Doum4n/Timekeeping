@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,7 +58,6 @@ public class ScannerActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         scannerType = ScannerType.valueOf(bundle.getString("type"));
-
 
         previewView = findViewById(R.id.previewView);
         Button scanButton = findViewById(R.id.scanButton);
@@ -125,27 +125,6 @@ public class ScannerActivity extends AppCompatActivity {
                     Log.e("Firebase", "Lỗi kiểm tra nhóm", e);
                     runOnUiThread(() -> Toast.makeText(this, "Lỗi kiểm tra nhóm!", Toast.LENGTH_SHORT).show());
                 });
-    }
-
-    //TODO Để tạm
-    private void generateQRCode(String text) {
-        QRCodeWriter writer = new QRCodeWriter();
-        try {
-            BitMatrix bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 400, 400);
-            int width = bitMatrix.getWidth();
-            int height = bitMatrix.getHeight();
-            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
-                }
-            }
-
-//            qrImageView.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
     }
 
     private void addEmployeeToGroup(String userId, String groupId) {

@@ -21,8 +21,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    protected void setupToolbar(String name) {
-        toolbar = findViewById(R.id.toolbar);
+    protected void setupToolbar(Toolbar toolbar, String name) {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

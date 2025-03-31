@@ -2,14 +2,18 @@ package com.example.timekeeping.ui.group;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timekeeping.CustomCalenderView;
+import com.example.timekeeping.QRJoinGroupActivity;
 import com.example.timekeeping.R;
 import com.example.timekeeping.adapters.CalendarAdapter;
 import com.example.timekeeping.base.BaseActivity;
@@ -25,7 +29,6 @@ public class GroupActivity extends BaseActivity implements CustomCalenderView.On
 
     private ActivityGroupBinding binding;
 
-
     private GridView gridViewDays;
     private TextView tvMonthYear;
     private CalendarAdapter calendarAdapter;
@@ -36,7 +39,9 @@ public class GroupActivity extends BaseActivity implements CustomCalenderView.On
         super.onCreate(savedInstanceState);
         binding = ActivityGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setupToolbar("Tên nhóm");
+        setupToolbar(binding.toolbar,"Tên nhóm");
+
+//        setSupportActionBar(binding.toolbar);
 
         String groupId = getIntent().getStringExtra("group_id");
 
@@ -71,6 +76,12 @@ public class GroupActivity extends BaseActivity implements CustomCalenderView.On
 
         // Xử lý click chọn ngày
         gridViewDays.setOnItemClickListener((parent, view, position, id) -> calendarAdapter.setSelectedPosition(position));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu_group, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void updateCalendar() {
@@ -109,5 +120,15 @@ public class GroupActivity extends BaseActivity implements CustomCalenderView.On
     public void onMonthChanged(int month) {
         calendar.set(Calendar.MONTH, month - 1); // Đặt tháng mới (Calendar.MONTH bắt đầu từ 0)
         updateCalendar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.QR_join_group){
+            Intent intent = new Intent(this, QRJoinGroupActivity.class);
+            intent.putExtra("group_id", getIntent().getStringExtra("group_id"));
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

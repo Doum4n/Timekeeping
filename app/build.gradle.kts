@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.legacy.support.v4)
     implementation(libs.material.v190)
     implementation(libs.core)
+    implementation(libs.gridlayout)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

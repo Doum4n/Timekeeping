@@ -16,6 +16,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timekeeping.MyShiftsActivity;
+import com.example.timekeeping.models.Employee;
+import com.example.timekeeping.ui.group.EmployeeManagementActivity;
 import com.example.timekeeping.ui.group.GroupActivity;
 import com.example.timekeeping.R;
 import com.example.timekeeping.models.Group;
@@ -56,6 +58,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.viewHolder> 
             intent.putExtra("groupId", group.getId());
             context.startActivity(intent);
         });
+
+        holder.btnMember.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EmployeeManagementActivity.class);
+            intent.putExtra("groupId", group.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -67,11 +75,13 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.viewHolder> 
         TextView txtGroupName;
         ConstraintLayout cstLayoutGroupItem;
         Button btnTimekeeping;
+        Button btnMember;
         public viewHolder(View itemView) {
             super(itemView);
             cstLayoutGroupItem = itemView.findViewById(R.id.cstLayout_group);
             txtGroupName = itemView.findViewById(R.id.txtGroupName);
             btnTimekeeping = itemView.findViewById(R.id.btn_Clock_in);
+            btnMember = itemView.findViewById(R.id.btnMembers);
         }
     }
 }

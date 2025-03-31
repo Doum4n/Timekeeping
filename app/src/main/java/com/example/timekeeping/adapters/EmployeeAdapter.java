@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.timekeeping.EmployeeDetail;
 import com.example.timekeeping.R;
 import com.example.timekeeping.GrantPermissionsActivity;
 import com.example.timekeeping.models.Employee;
@@ -22,9 +23,10 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.viewHo
 
     private List<Employee> employees = new ArrayList<>();
     private Context context;
-
-    public EmployeeAdapter(List<Employee> employees){
+    private int tab;
+    public EmployeeAdapter(List<Employee> employees, int tab){
         this.employees = employees;
+        this.tab = tab;
     }
 
     @NonNull
@@ -41,11 +43,24 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.viewHo
 
         holder.txtEmployeeName.setText(employee.getName());
 
-        holder.btnGrantPermissions.setOnClickListener(v -> {
-            Intent intent = new Intent(context, GrantPermissionsActivity.class);
-            intent.putExtra("employeeId", employee.getId());
-            context.startActivity(intent);
-        });
+        switch (tab){
+            case 0:
+                holder.btnAction.setText("Xem chi tiết");
+                holder.btnAction.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, EmployeeDetail.class);
+                    intent.putExtra("employeeId", employee.getId());
+                    context.startActivity(intent);
+                });
+                break;
+            case 1:
+                holder.btnAction.setText("Liên kết");
+                holder.btnAction.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, GrantPermissionsActivity.class);
+                    intent.putExtra("employeeId", employee.getId());
+                    context.startActivity(intent);
+                });
+                break;
+        }
     }
 
     @Override
@@ -55,12 +70,12 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.viewHo
 
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView txtEmployeeName;
-        Button btnGrantPermissions;
+        Button btnAction;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtEmployeeName = itemView.findViewById(R.id.txtEmployeeName);
-            btnGrantPermissions = itemView.findViewById(R.id.btn_grant_permissions);
+            btnAction = itemView.findViewById(R.id.btn_action);
         }
     }
 }
