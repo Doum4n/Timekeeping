@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.timekeeping.CustomCalenderView;
 import com.example.timekeeping.QRJoinGroupActivity;
 import com.example.timekeeping.R;
+import com.example.timekeeping.ScheduleActivity;
 import com.example.timekeeping.adapters.CalendarAdapter;
 import com.example.timekeeping.base.BaseActivity;
 import com.example.timekeeping.databinding.ActivityGroupBinding;
@@ -41,8 +42,6 @@ public class GroupActivity extends BaseActivity implements CustomCalenderView.On
         setContentView(binding.getRoot());
         setupToolbar(binding.toolbar,"Tên nhóm");
 
-//        setSupportActionBar(binding.toolbar);
-
         String groupId = getIntent().getStringExtra("group_id");
 
         binding.imgBtnShiftManagement.setOnClickListener(v -> {
@@ -57,7 +56,16 @@ public class GroupActivity extends BaseActivity implements CustomCalenderView.On
             startActivity(intent);
         });
 
+        binding.imgBtnSchedule.setOnClickListener(v -> {
+            Intent intent = new Intent(GroupActivity.this, ScheduleActivity.class);
+            intent.putExtra("groupId", groupId);
+            startActivity(intent);
+        });
 
+        initCalendar();
+    }
+
+    private void initCalendar() {
         gridViewDays = findViewById(R.id.gridViewDays);
         tvMonthYear = findViewById(R.id.tvMonthYear);
 
